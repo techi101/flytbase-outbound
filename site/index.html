@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gulf Solar Outbound Pack</title>
+<meta name="description" content="A starter outbound pack for FlytBase: 17 Gulf solar accounts with public triggers, buyer roles and first lines, plus a 4-touch sequence. Built by Nitesh Kumar Yadav.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2322406E'/%3E%3Cpath d='M7 11h18M7 16h18M7 21h18' stroke='%23E7EAE4' stroke-width='2.4'/%3E%3Ccircle cx='24' cy='9' r='3' fill='%23F0B323'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E7EAE4; --ground-2:#DCE0D8; --ink:#17212B; --pv:#22406E; --pv-2:#35609E;
+  --sand:#CDB58A; --signal:#F0B323; --muted:#56616B; --rule:#C6CCC3; --paper:#F3F5F1;
+  --ease-out:cubic-bezier(.23,1,.32,1); --ease-expo:cubic-bezier(.16,1,.3,1);
+  --step-0:clamp(1rem,.96rem + .2vw,1.0625rem);
+  --step-1:clamp(1.125rem,1.05rem + .35vw,1.3rem);
+  --step-2:clamp(1.4rem,1.2rem + .9vw,1.9rem);
+  --step-4:clamp(2.3rem,1.7rem + 2vw,3.4rem);
+  --wrap:1180px; --gut:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font:400 var(--step-0)/1.55 "Instrument Sans",ui-sans-serif,sans-serif;overflow-x:hidden}
+a{color:var(--pv);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:3px}
+h1,h2,h3{font-family:"Bricolage Grotesque",ui-sans-serif,sans-serif;font-optical-sizing:auto;letter-spacing:-.025em;text-wrap:balance;margin:0}
+p{margin:0 0 1em}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px var(--gut);max-width:var(--wrap);margin:0 auto;font-size:.95rem}
+.top .who{font-weight:600}
+.top nav{display:flex;gap:20px}
+.top nav a{color:var(--ink);text-decoration:none}
+.top nav a:hover{text-decoration:underline}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,56px);align-items:center;max-width:var(--wrap);margin:0 auto;padding:clamp(24px,5vw,64px) var(--gut) clamp(40px,6vw,88px)}
+.hero h1{font-size:var(--step-4);line-height:1;font-weight:750;margin-bottom:.45em}
+.hero .lede{font-size:var(--step-1);color:#2B3742;max-width:34ch}
+.hero .meta{color:var(--muted);font-size:.95rem;max-width:42ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 22px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;font-weight:600;text-decoration:none;transition:transform 140ms var(--ease-out),background 200ms ease}
+.btn:active{transform:scale(.97)}
+.btn.solid{background:var(--pv);color:#fff}
+.btn.solid:hover{background:var(--ink);color:#fff}
+.btn.line{box-shadow:inset 0 0 0 1.5px var(--pv);color:var(--pv)}
+.btn.line:hover{background:var(--paper)}
+.plan{margin:0;position:relative}
+.plan svg{display:block;width:100%;height:auto;border-radius:18px;box-shadow:0 0 0 1px rgb(23 33 43/.08),0 40px 80px -40px rgb(23 33 43/.45)}
+.plan figcaption{font-size:.88rem;color:var(--muted);margin-top:12px;max-width:60ch}
+.path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.6s var(--ease-expo) .3s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.drone{opacity:0;animation:pop .5s var(--ease-out) 2.5s forwards}
+@keyframes pop{to{opacity:1}}
+
+/* sections */
+section{padding:clamp(48px,7vw,96px) 0}
+.why{background:var(--paper);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.why .cols{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,5vw,72px)}
+h2{font-size:var(--step-2);line-height:1.1;font-weight:700}
+.why .reasons{display:grid;gap:22px}
+.why .reasons p{margin:0;max-width:66ch}
+.why .reasons strong{font-weight:650;color:var(--pv)}
+
+/* table */
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:22px}
+.head p{max-width:62ch;color:#2B3742;margin:10px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:.92rem;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;transition:background 200ms ease,transform 140ms var(--ease-out)}
+.chip:active{transform:scale(.97)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.legend{font-size:.9rem;color:var(--muted);margin:0 0 14px}
+.frame{background:var(--paper);border-radius:14px;box-shadow:0 0 0 1px rgb(23 33 43/.09),0 30px 70px -45px rgb(23 33 43/.5);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+thead th{text-align:left;font-weight:600;font-size:.9rem;color:var(--muted);padding:14px 16px;border-bottom:1px solid var(--rule);background:var(--ground-2)}
+td{vertical-align:top;padding:18px 16px;border-bottom:1px solid var(--rule)}
+tr:last-child td{border-bottom:0}
+td.acc{width:20%}
+td.trg{width:33%}
+td.buy{width:15%;color:#2B3742}
+td.acc strong{display:block;font-weight:650;line-height:1.3}
+.ctry{display:block;color:var(--muted);font-size:.88rem;margin-top:2px}
+.tier{float:right;margin-left:8px;width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-size:.75rem;font-weight:700}
+.tA{background:var(--pv);color:#fff}.tB{background:var(--pv-2);color:#fff;opacity:.8}.tC{box-shadow:inset 0 0 0 1.5px var(--pv-2);color:var(--pv)}
+.src{display:block;margin-top:8px;font-size:.84rem}
+.src a+a::before{content:"and ";color:var(--muted);text-decoration:none;display:inline-block;margin-right:.25em}
+.src a+a{margin-left:.25em}
+td.fl p{margin:0 0 8px;font-size:.97rem}
+.copy{font:inherit;font-size:.84rem;background:none;border:0;padding:6px 0;min-height:32px;color:var(--pv);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.copy[data-done]{color:var(--muted);text-decoration:none}
+tr[hidden]{display:none}
+
+/* sequence */
+.seq ol{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--rule)}
+.seq li{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(16px,4vw,56px);padding:26px 0;border-bottom:1px solid var(--rule)}
+.when{display:flex;flex-direction:column;gap:2px}
+.day{font-family:"Bricolage Grotesque",sans-serif;font-size:var(--step-2);font-weight:700;line-height:1;color:var(--pv)}
+.ch{color:var(--muted)}
+.what h3{font-size:var(--step-1);font-weight:650;margin-bottom:10px}
+pre{margin:0;white-space:pre-wrap;font:inherit;font-size:.97rem;max-width:66ch;color:#2B3742}
+.tok{background:#F6E3A6;border-radius:4px;padding:0 4px;color:var(--ink)}
+.seq .note{color:var(--muted);max-width:66ch;margin-top:18px;font-size:.93rem}
+
+/* how */
+.how{background:var(--ink);color:#E3E7E1}
+.how a{color:#F3D27A}
+.how a:hover{color:#fff}
+.how .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,56px);margin-top:28px}
+.how h3{font-size:var(--step-1);font-weight:650;margin-bottom:10px;color:#fff}
+.how p{color:#C9D0CB;max-width:46ch}
+footer{padding:28px 0 40px;font-size:.9rem;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .why .cols{grid-template-columns:1fr}
+  .how .cols{grid-template-columns:1fr}
+  .seq li{grid-template-columns:1fr}
+  .when{flex-direction:row;align-items:baseline;gap:10px}
+  .frame{background:transparent;box-shadow:none;border-radius:0;overflow:visible}
+  table,tbody,tr,td{display:block;width:auto!important}
+  thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  tr{padding:18px 0;border-top:1px solid var(--rule)}
+  td{border:0;padding:6px 0}
+  td[data-label]:not(.acc)::before{content:attr(data-label);display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:2px}
+  td.acc strong{font-size:1.08rem}
+}
+@media (max-width:520px){.top nav{gap:14px}.top .who span{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="who">Nitesh Kumar Yadav<span>, for FlytBase</span></div>
+  <nav><a href="#accounts">Accounts</a><a href="#sequence">Sequence</a><a href="https://github.com/techi101/flytbase-outbound">Code</a></nav>
+</header>
+
+<main>
+<div class="hero">
+  <div>
+    <h1>Seventeen Gulf solar accounts, ready for a first email</h1>
+    <p class="lede">I am applying for FlytBase's outbound BDR role. Instead of telling you I can prospect, here is a starter pack for one segment: utility solar in the Gulf.</p>
+    <div class="cta">
+      <a class="btn solid" href="#accounts">See the accounts</a>
+      <a class="btn line" href="accounts.csv" download>Download CSV</a>
+    </div>
+    <p class="meta">Every trigger links to a public source I read on 26 Nov 2026. Buyers are listed as roles only, with no scraped emails or phone numbers.</p>
+  </div>
+  <figure class="plan">
+    <svg viewBox="0 0 760 560" role="img" aria-labelledby="plan-t">
+      <title id="plan-t">Top-down sketch of a solar site with a drone dock and a patrol path around the fence</title>
+      <defs>
+        <pattern id="rows" width="14" height="12" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="14" height="7" fill="#22406E"/>
+          <rect x="0" y="0" width="14" height="1.4" fill="#35609E"/>
+        </pattern>
+        <pattern id="dune" width="120" height="120" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+          <path d="M0 60 Q30 48 60 60 T120 60" fill="none" stroke="#C3A877" stroke-width="1" opacity=".55"/>
+          <path d="M0 100 Q30 90 60 100 T120 100" fill="none" stroke="#C3A877" stroke-width="1" opacity=".35"/>
+        </pattern>
+      </defs>
+      <rect width="760" height="560" fill="#D8C49C"/>
+      <rect width="760" height="560" fill="url(#dune)"/>
+      <!-- fence -->
+      <rect x="56" y="52" width="648" height="456" rx="6" fill="#DCCBA6" stroke="#8B7A5A" stroke-width="1.5" stroke-dasharray="6 5"/>
+      <!-- blocks -->
+      <rect x="92" y="88" width="270" height="170" fill="url(#rows)"/>
+      <rect x="398" y="88" width="270" height="170" fill="url(#rows)"/>
+      <rect x="92" y="300" width="270" height="170" fill="url(#rows)"/>
+      <rect x="398" y="300" width="160" height="170" fill="url(#rows)"/>
+      <!-- battery yard -->
+      <g fill="#EEF0EA" stroke="#9AA39A">
+        <rect x="582" y="312" width="38" height="20"/><rect x="630" y="312" width="38" height="20"/>
+        <rect x="582" y="342" width="38" height="20"/><rect x="630" y="342" width="38" height="20"/>
+        <rect x="582" y="372" width="38" height="20"/><rect x="630" y="372" width="38" height="20"/>
+      </g>
+      <!-- inverter pads -->
+      <g fill="#EEF0EA" stroke="#7D8A86"><rect x="220" y="266" width="16" height="16"/><rect x="526" y="266" width="16" height="16"/><rect x="220" y="476" width="16" height="16"/></g>
+      <!-- roads -->
+      <path d="M56 279 H704 M380 52 V508" stroke="#E9DDC2" stroke-width="10"/>
+      <!-- patrol path: fence loop then a thermal pass over block A -->
+      <path class="path" pathLength="1" fill="none" stroke="#F0B323" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"
+        d="M380 279 L380 70 L686 70 L686 490 L74 490 L74 70 L380 70 M380 70 L380 100 L104 100 L104 128 L350 128 L350 156 L104 156 L104 184 L350 184 L350 212 L104 212 L104 240 L350 240 L380 279"/>
+      <!-- dock -->
+      <g>
+        <rect x="366" y="265" width="28" height="28" rx="4" fill="#17212B"/>
+        <rect x="372" y="271" width="16" height="16" rx="2" fill="none" stroke="#F0B323" stroke-width="2"/>
+      </g>
+      <g class="drone" transform="translate(686 230)">
+        <circle r="20" fill="#F0B323" opacity=".22"/>
+        <path d="M-8 -8 L8 8 M8 -8 L-8 8" stroke="#17212B" stroke-width="2.2"/>
+        <g fill="none" stroke="#17212B" stroke-width="1.8"><circle cx="-9" cy="-9" r="5"/><circle cx="9" cy="-9" r="5"/><circle cx="-9" cy="9" r="5"/><circle cx="9" cy="9" r="5"/></g>
+        <rect x="-4" y="-4" width="8" height="8" rx="2" fill="#17212B"/>
+      </g>
+      <g font-family="Instrument Sans, sans-serif" font-size="15" font-weight="600" fill="#17212B">
+        <text x="404" y="300" dy="-6">dock</text>
+        <text x="582" y="408">battery yard</text>
+        <text x="700" y="44" text-anchor="end">fence patrol</text>
+        <text x="96" y="82">thermal pass, block A</text>
+      </g>
+    </svg>
+    <figcaption>A sketch, not a real site. One dock flies a fence loop and a thermal pass over a block. EnBW runs this kind of setup on 1 GW of PV from Stuttgart, using FlytBase.</figcaption>
+  </figure>
+</div>
+
+<section class="why">
+  <div class="wrap cols">
+    <h2>Why Gulf solar first</h2>
+    <div class="reasons">
+      <p><strong>FlytBase already has the proof.</strong> <a href="https://flytbase.com/case-studies/enbw-scaled-solar-pv-inspections-150-mw-to-1-gw-autonomous-drone-docks" target="_blank" rel="noopener">EnBW</a> scaled solar inspections from 150 MW to 1 GW with docks and got 2 to 4 times more inspections for the same budget. A buyer in Abu Dhabi can picture that.</p>
+      <p><strong>The region is already in motion.</strong> The featured case study on the site is <a href="https://flytbase.com/case-studies/ibn-firnas-drone-center-oman-government-construction-monitoring" target="_blank" rel="noopener">Ibn Firnas in Oman</a>, there is a <a href="https://flytbase.com/case-studies/uae-waste-management-autonomous-drone-implementation-case-study" target="_blank" rel="noopener">UAE waste authority</a> story, and <a href="https://uasweekly.com/2025/05/27/flytbase-aeronex-bring-drone-autonomy-solutions-to-mena-region-in-2025/" target="_blank" rel="noopener">Aeronex became master distributor for MENA</a> in May 2025. Partners need meetings to sell into.</p>
+      <p><strong>The timing is public.</strong> The accounts below cover over 22 GW of new solar that is being built, has been financed, or is out to bid. Every one of those sites will need an inspection and security plan, and the people writing it can be found today.</p>
+    </div>
+  </div>
+</section>
+
+<section id="accounts">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <h2>The accounts</h2>
+        <p>Tier A has a site running or under construction now. Tier B is financed or awarded. Tier C is still at bid stage, so it is a watch list, not a send list.</p>
+      </div>
+      <div class="chips" role="group" aria-label="Filter by country"><button type="button" class="chip" aria-pressed="true" data-c="all">All 17</button><button type="button" class="chip" aria-pressed="false" data-c="UAE">UAE 7</button><button type="button" class="chip" aria-pressed="false" data-c="Saudi Arabia">Saudi Arabia 3</button><button type="button" class="chip" aria-pressed="false" data-c="Qatar">Qatar 3</button><button type="button" class="chip" aria-pressed="false" data-c="Oman">Oman 2</button><button type="button" class="chip" aria-pressed="false" data-c="Kuwait">Kuwait 1</button><button type="button" class="chip" aria-pressed="false" data-c="Bahrain">Bahrain 1</button></div>
+    </div>
+    <p class="legend" id="count" aria-live="polite">Showing all 17 accounts.</p>
+    <div class="frame">
+      <table>
+        <thead><tr><th scope="col">Account</th><th scope="col">Public trigger</th><th scope="col">Who to reach</th><th scope="col">First line</th></tr></thead>
+        <tbody>
+      <tr data-country="UAE">
+        <td class="acc" data-label="Account"><span class="tier tA" title="Tier A">A</span><strong>Masdar</strong><span class="ctry">UAE</span></td>
+        <td class="trg" data-label="Trigger">Reached financial close on 13 Jul 2026 for the round-the-clock project with EWEC: 5.2 GW of PV plus 19 GWh of batteries, US$6.1bn.<span class="src"><a href="https://www.meed.com/masdar-reaches-financial-close-on-world-first-247-solar-project" target="_blank" rel="noopener">MEED, 14 Jul 2026</a></span></td>
+        <td class="buy" data-label="Who to reach">Head of asset management or O&amp;M for UAE renewables</td>
+        <td class="fl" data-label="First line"><p id="l0">Saw the round-the-clock project close its financing in July. With 5.2 GW of panels next to 19 GWh of batteries, I am guessing the inspection plan for that site is still being written.</p><button class="copy" type="button" data-for="l0">Copy line</button></td>
+      </tr>
+      <tr data-country="UAE">
+        <td class="acc" data-label="Account"><span class="tier tA" title="Tier A">A</span><strong>EDF power solutions, Middle East</strong><span class="ctry">UAE</span></td>
+        <td class="trg" data-label="Trigger">Runs Manah 1 (500 MW, Oman, with KOWEPO, commissioned Jan 2025). Signed 1.5 GW Al Zarraf in Abu Dhabi (Jun 2025). Reported Round 7 frontrunner in Saudi (Nov 2026).<span class="src"><a href="https://france.edf-powersolutions.com/communiques/edf-renewables-and-korea-western-power-company-inaugurate-sultanate-of-omans-largest-solar-power-plant/" target="_blank" rel="noopener">EDF power solutions</a> <a href="https://constructionreviewonline.com/edf-and-kowepo-ink-deal-for-1-5-gw-al-zarraf-solar-pv-project-in-abu-dhabi/" target="_blank" rel="noopener">Construction Review, Jun 2025</a> <a href="https://gcctendernews.com/article/saudi-nrep-round-7-solar-ipps-four-frontrunners-meed-reports/" target="_blank" rel="noopener">GCC Tender News citing MEED, 22 Nov 2026</a></span></td>
+        <td class="buy" data-label="Who to reach">Regional O&amp;M director, or asset manager for Manah 1</td>
+        <td class="fl" data-label="First line"><p id="l1">You now run Manah 1 in Oman and have Al Zarraf coming in Al Dhafra, two big desert sites far apart. Is the plan to inspect both from one control room?</p><button class="copy" type="button" data-for="l1">Copy line</button></td>
+      </tr>
+      <tr data-country="UAE">
+        <td class="acc" data-label="Account"><span class="tier tA" title="Tier A">A</span><strong>Jinko Power</strong><span class="ctry">UAE</span></td>
+        <td class="trg" data-label="Trigger">In the consortium building 1.5 GW Khazna Solar PV (civil works began Jan 2026, operation planned 2027). Partner in Manah II, Oman (500 MW, running since Q2 2025).<span class="src"><a href="https://constructionreviewonline.com/construction-begins-on-1-5-gw-khazna-solar-pv-project/" target="_blank" rel="noopener">Construction Review, 30 Jan 2026</a> <a href="https://omanpwp.om/storage/files/1/annual-report/6a3b71d52252a.pdf" target="_blank" rel="noopener">Nama PWP Annual Report 2025</a></span></td>
+        <td class="buy" data-label="Who to reach">Head of O&amp;M, Middle East</td>
+        <td class="fl" data-label="First line"><p id="l2">Civil works started at Khazna in January, and Manah II has been running since last year. How does your team do thermography on a 500 MW site today, drones with a pilot or crews on foot?</p><button class="copy" type="button" data-for="l2">Copy line</button></td>
+      </tr>
+      <tr data-country="UAE">
+        <td class="acc" data-label="Account"><span class="tier tA" title="Tier A">A</span><strong>TAQA</strong><span class="ctry">UAE</span></td>
+        <td class="trg" data-label="Trigger">In the consortium building 1.5 GW Khazna Solar PV in Abu Dhabi, construction began Jan 2026.<span class="src"><a href="https://constructionreviewonline.com/construction-begins-on-1-5-gw-khazna-solar-pv-project/" target="_blank" rel="noopener">Construction Review, 30 Jan 2026</a></span></td>
+        <td class="buy" data-label="Who to reach">Head of security and HSE for generation assets</td>
+        <td class="fl" data-label="First line"><p id="l3">Khazna moving into construction caught my eye. Once it is live, who on the TAQA side will own perimeter security for a 1.5 GW site out in the desert?</p><button class="copy" type="button" data-for="l3">Copy line</button></td>
+      </tr>
+      <tr data-country="UAE">
+        <td class="acc" data-label="Account"><span class="tier tB" title="Tier B">B</span><strong>EWEC</strong><span class="ctry">UAE</span></td>
+        <td class="trg" data-label="Trigger">Offtaker and co-developer on Khazna, Al Zarraf and the round-the-clock project. Abu Dhabi set a 15 GW storage target for 2035 (Sep 2026).<span class="src"><a href="https://www.ess-news.com/2026/09/24/abu-dhabi-targets-15-gw-of-energy-storage-by-2035/" target="_blank" rel="noopener">ESS News, 24 Sep 2026</a> <a href="https://www.meed.com/masdar-reaches-financial-close-on-world-first-247-solar-project" target="_blank" rel="noopener">MEED, 14 Jul 2026</a></span></td>
+        <td class="buy" data-label="Who to reach">Renewables asset oversight or digital operations lead</td>
+        <td class="fl" data-label="First line"><p id="l4">EWEC buys the power from every big solar plant in Abu Dhabi. Do you set any shared standard for how those plants get inspected, or is that left to each developer?</p><button class="copy" type="button" data-for="l4">Copy line</button></td>
+      </tr>
+      <tr data-country="Saudi Arabia">
+        <td class="acc" data-label="Account"><span class="tier tB" title="Tier B">B</span><strong>ACWA Power</strong><span class="ctry">Saudi Arabia</span></td>
+        <td class="trg" data-label="Trigger">Financed Haden (2 GW), Muwayh (2 GW) and Al Khushaybi (1.5 GW) with Badeel and Aramco Power; commercial operation expected Q1 2027.<span class="src"><a href="https://www.energetica-india.net/news/acwa-power-and-partners-secure-financial-close-on-solar-projects" target="_blank" rel="noopener">Energetica India, 2 Oct 2024</a></span></td>
+        <td class="buy" data-label="Who to reach">VP operations and maintenance, renewables</td>
+        <td class="fl" data-label="First line"><p id="l5">Haden, Muwayh and Al Khushaybi are due in early 2027, which is 5.5 GW arriving almost at once. Has the O&amp;M team already decided how thermal checks will run across three sites?</p><button class="copy" type="button" data-for="l5">Copy line</button></td>
+      </tr>
+      <tr data-country="Saudi Arabia">
+        <td class="acc" data-label="Account"><span class="tier tA" title="Tier A">A</span><strong>Red Sea Global</strong><span class="ctry">Saudi Arabia</span></td>
+        <td class="trg" data-label="Trigger">Off-grid utility system went into full commercial operation in Sep 2026: about 340 MW of PV and 1,227 MWh of batteries feeding the airport and resorts.<span class="src"><a href="https://www.pv-tech.org/acwa-power-starts-commercial-operations-340mw-off-grid-solar-plus-storage-project/" target="_blank" rel="noopener">PV Tech, 8 Sep 2026</a> <a href="https://www.arabnews.com/energy/saudi-red-sea-destination-begins-operations-with-giant-off-grid-renewable-energy-system-3000732" target="_blank" rel="noopener">Arab News, 6 Sep 2026</a></span></td>
+        <td class="buy" data-label="Who to reach">Director of utilities, or head of destination security</td>
+        <td class="fl" data-label="First line"><p id="l6">Congrats on the Red Sea utilities going fully off grid in September. With the airport and resorts on the same system, are solar inspection and site security still two separate teams?</p><button class="copy" type="button" data-for="l6">Copy line</button></td>
+      </tr>
+      <tr data-country="Saudi Arabia">
+        <td class="acc" data-label="Account"><span class="tier tC" title="Tier C">C</span><strong>Aljomaih Energy and Water (with TotalEnergies)</strong><span class="ctry">Saudi Arabia</span></td>
+        <td class="trg" data-label="Trigger">Reported by MEED as a frontrunner for one of four Round 7 solar IPPs (Tabjal 2, Mawqqaq, Tathleeth, South Al-Ula). Not yet confirmed.<span class="src"><a href="https://gcctendernews.com/article/saudi-nrep-round-7-solar-ipps-four-frontrunners-meed-reports/" target="_blank" rel="noopener">GCC Tender News citing MEED, 22 Nov 2026</a></span></td>
+        <td class="buy" data-label="Who to reach">Head of O&amp;M or technical director</td>
+        <td class="fl" data-label="First line"><p id="l7">MEED has Aljomaih and TotalEnergies among the Round 7 frontrunners. If one of those plants lands with you, now is the cheap moment to plan how it gets inspected.</p><button class="copy" type="button" data-for="l7">Copy line</button></td>
+      </tr>
+      <tr data-country="UAE">
+        <td class="acc" data-label="Account"><span class="tier tC" title="Tier C">C</span><strong>Etihad Water and Electricity (with KEPCO)</strong><span class="ctry">UAE</span></td>
+        <td class="trg" data-label="Trigger">Reported Round 7 solar frontrunner in Saudi Arabia with KEPCO (Nov 2026). Not yet confirmed.<span class="src"><a href="https://gcctendernews.com/article/saudi-nrep-round-7-solar-ipps-four-frontrunners-meed-reports/" target="_blank" rel="noopener">GCC Tender News citing MEED, 22 Nov 2026</a></span></td>
+        <td class="buy" data-label="Who to reach">Head of business development, renewables</td>
+        <td class="fl" data-label="First line"><p id="l8">Read that EtihadWE and KEPCO are among the Round 7 frontrunners. If that plant comes your way, I would love to hear how you plan to run it from across the border.</p><button class="copy" type="button" data-for="l8">Copy line</button></td>
+      </tr>
+      <tr data-country="UAE">
+        <td class="acc" data-label="Account"><span class="tier tB" title="Tier B">B</span><strong>DEWA</strong><span class="ctry">UAE</span></td>
+        <td class="trg" data-label="Trigger">Mohammed bin Rashid Solar Park is at 3,860 MW; Phase 7 tender adds 2 GW PV plus 1,400 MW of six-hour storage (Jan 2026).<span class="src"><a href="https://dewa.gov.ae/en/about-us/media-publications/latest-news/2026/1/dewa-highlights-7th-phase" target="_blank" rel="noopener">DEWA, 14 Jan 2026</a></span></td>
+        <td class="buy" data-label="Who to reach">Solar park operations or innovation lead</td>
+        <td class="fl" data-label="First line"><p id="l9">The solar park is at 3,860 MW and Phase 7 adds another 2 GW with batteries. That is a lot of rows to walk in a Dubai summer.</p><button class="copy" type="button" data-for="l9">Copy line</button></td>
+      </tr>
+      <tr data-country="Qatar">
+        <td class="acc" data-label="Account"><span class="tier tB" title="Tier B">B</span><strong>QatarEnergy Renewable Solutions</strong><span class="ctry">Qatar</span></td>
+        <td class="trg" data-label="Trigger">Signed with Samsung C&amp;T to build the 2 GW Dukhan solar plant by mid-2029, which doubles Qatar&#x27;s solar capacity (Sep 2025).<span class="src"><a href="https://www.energyglobal.com/solar/22092025/qatarenergy-signs-solar-plant-construction-contract-with-samsung/" target="_blank" rel="noopener">Energy Global, 22 Sep 2025</a></span></td>
+        <td class="buy" data-label="Who to reach">Asset manager, solar</td>
+        <td class="fl" data-label="First line"><p id="l10">Dukhan doubles Qatar&#x27;s solar capacity by 2029, and Al Kharsaah is already running in the same part of the country. Are you planning one inspection setup for both?</p><button class="copy" type="button" data-for="l10">Copy line</button></td>
+      </tr>
+      <tr data-country="Qatar">
+        <td class="acc" data-label="Account"><span class="tier tA" title="Tier A">A</span><strong>Samsung C&amp;T (Dukhan EPC)</strong><span class="ctry">Qatar</span></td>
+        <td class="trg" data-label="Trigger">EPC contractor building the 2 GW Dukhan plant through mid-2029.<span class="src"><a href="https://www.energyglobal.com/solar/22092025/qatarenergy-signs-solar-plant-construction-contract-with-samsung/" target="_blank" rel="noopener">Energy Global, 22 Sep 2025</a></span></td>
+        <td class="buy" data-label="Who to reach">Project director or construction QA lead</td>
+        <td class="fl" data-label="First line"><p id="l11">Building 2 GW at Dukhan means a lot of weekly progress reports. A drone centre in Oman cut its reporting time by 87% on government sites with no pilot on site, and I can share how.</p><button class="copy" type="button" data-for="l11">Copy line</button></td>
+      </tr>
+      <tr data-country="Qatar">
+        <td class="acc" data-label="Account"><span class="tier tA" title="Tier A">A</span><strong>Siraj Energy / Al Kharsaah (TotalEnergies, Marubeni)</strong><span class="ctry">Qatar</span></td>
+        <td class="trg" data-label="Trigger">800 MWp running since Oct 2022, two million bifacial modules on trackers, modules cleaned every four days. No new trigger; the size of the O&amp;M job is the reason.<span class="src"><a href="https://totalenergies.com/company/projects/solar/al-kharsaah-solar-power-plant-qatar" target="_blank" rel="noopener">TotalEnergies</a></span></td>
+        <td class="buy" data-label="Who to reach">Plant manager</td>
+        <td class="fl" data-label="First line"><p id="l12">Al Kharsaah has two million bifacial modules and cleans every one of them every four days. Do the thermal checks run on a schedule that tight too?</p><button class="copy" type="button" data-for="l12">Copy line</button></td>
+      </tr>
+      <tr data-country="Oman">
+        <td class="acc" data-label="Account"><span class="tier tA" title="Tier A">A</span><strong>Sembcorp (Manah II)</strong><span class="ctry">Oman</span></td>
+        <td class="trg" data-label="Trigger">Manah II (500 MW, Sembcorp Jinko Shine) reached commercial operation in Q2 2025.<span class="src"><a href="https://omanpwp.om/storage/files/1/annual-report/6a3b71d52252a.pdf" target="_blank" rel="noopener">Nama PWP Annual Report 2025</a></span></td>
+        <td class="buy" data-label="Who to reach">Asset manager, Oman</td>
+        <td class="fl" data-label="First line"><p id="l13">Manah II hit commercial operation in Q2 2025. About a year in, how is your team handling string level inspections across 500 MW?</p><button class="copy" type="button" data-for="l13">Copy line</button></td>
+      </tr>
+      <tr data-country="Oman">
+        <td class="acc" data-label="Account"><span class="tier tB" title="Tier B">B</span><strong>OQ Alternative Energy</strong><span class="ctry">Oman</span></td>
+        <td class="trg" data-label="Trigger">In the Masdar-led consortium for Ibri III: 500 MW PV plus 100 MWh battery, Oman&#x27;s first utility solar with storage. Contract signed Sep 2025.<span class="src"><a href="https://masdar.ae/en/news/newsroom/nama-power-and-water-procurement-signs-agreement-with-masdar-led-consortium" target="_blank" rel="noopener">Masdar</a> <a href="https://www.meed.com/oman-awards-403m-ibri-iii-solar-ipp-contract" target="_blank" rel="noopener">MEED, 22 Sep 2025</a></span></td>
+        <td class="buy" data-label="Who to reach">Head of operations or digital lead</td>
+        <td class="fl" data-label="First line"><p id="l14">Ibri III is Oman&#x27;s first solar plant with a battery yard. Has the team looked at one docked drone covering both the PV rows and the BESS?</p><button class="copy" type="button" data-for="l14">Copy line</button></td>
+      </tr>
+      <tr data-country="Kuwait">
+        <td class="acc" data-label="Account"><span class="tier tB" title="Tier B">B</span><strong>Masdar, Kuwait project team</strong><span class="ctry">Kuwait</span></td>
+        <td class="trg" data-label="Trigger">Masdar-led consortium won the 1.1 GW Al Dibdibah and Shagaya Phase III Zone 1 solar project (Aug 2026).<span class="src"><a href="https://www.mvapulse.com/mena-renewable-energy-kuwait-awards-1-1-gw-solar-project/" target="_blank" rel="noopener">MVA Pulse, 18 Aug 2026</a></span></td>
+        <td class="buy" data-label="Who to reach">Project director, Kuwait</td>
+        <td class="fl" data-label="First line"><p id="l15">Congrats on Al Dibdibah. With sites now in the UAE, Oman and Kuwait, is Masdar thinking about one remote inspection setup across all of them?</p><button class="copy" type="button" data-for="l15">Copy line</button></td>
+      </tr>
+      <tr data-country="Bahrain">
+        <td class="acc" data-label="Account"><span class="tier tC" title="Tier C">C</span><strong>Bahrain EWA (Bilaj Al Jazayer bidders)</strong><span class="ctry">Bahrain</span></td>
+        <td class="trg" data-label="Trigger">EWA tendered a 100 MW solar IPP at Bilaj Al Jazayer, due online by Sep 2027 (Oct 2025). Watch for the award.<span class="src"><a href="https://www.pv-tech.org/bahrain-launches-tender-100mw-solar-project/" target="_blank" rel="noopener">PV Tech, 20 Oct 2025</a></span></td>
+        <td class="buy" data-label="Who to reach">The winning developer&#x27;s plant manager</td>
+        <td class="fl" data-label="First line"><p id="l16">Bilaj Al Jazayer is due by September 2027. A 100 MW plant usually runs with a small team, which is where remote inspection helps most.</p><button class="copy" type="button" data-for="l16">Copy line</button></td>
+      </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="sequence" class="seq">
+  <div class="wrap">
+    <h2>A four touch sequence for a solar O&amp;M head</h2>
+    <ol>
+      <li>
+        <div class="when"><span class="day">Day 1</span><span class="ch">Email</span></div>
+        <div class="what"><h3>Trigger first</h3><pre>Subject: <span class="tok">site</span> inspections
+
+Hi <span class="tok">first</span>,
+
+<span class="tok">first line from the table</span>
+
+EnBW grew its solar fleet from 150 MW to 1 GW and now runs drone inspections from Stuttgart, with docks on site and no one driving out. They got 2 to 4 times more inspections for the same budget.
+
+Worth a 15 minute look for <span class="tok">site</span>?</pre></div>
+      </li>
+      <li>
+        <div class="when"><span class="day">Day 3</span><span class="ch">LinkedIn</span></div>
+        <div class="what"><h3>Connect, no pitch</h3><pre>Hi <span class="tok">first</span>, I work with teams running docked drones on large solar sites. Saw the <span class="tok">trigger</span> news and wanted to follow your work on it.</pre></div>
+      </li>
+      <li>
+        <div class="when"><span class="day">Day 8</span><span class="ch">Email</span></div>
+        <div class="what"><h3>A different proof</h3><pre>Subject: no pilot on site
+
+Hi <span class="tok">first</span>,
+
+One more example closer to home. Ibn Firnas Drone Center in Oman watches three government sites from one hub over Starlink, with no pilot on any site. Reporting time dropped 87%.
+
+Remote desert sites are the same problem. If useful I can send a one page sketch of where docks would sit on <span class="tok">site</span>.</pre></div>
+      </li>
+      <li>
+        <div class="when"><span class="day">Day 15</span><span class="ch">Email</span></div>
+        <div class="what"><h3>Close the loop</h3><pre>Subject: closing this out
+
+Hi <span class="tok">first</span>,
+
+I will stop here. If inspections at <span class="tok">site</span> come up for review next year, reply with &#x27;later&#x27; and I will check back then. If someone else owns this, a name would help a lot.</pre></div>
+      </li>
+    </ol>
+    <p class="note">Each touch uses a different proof so the follow ups are not just "bumping this". The case study numbers come straight from FlytBase's own pages, so a rep can say them on a call without checking anything new.</p>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <h2>How I built it</h2>
+    <div class="cols">
+      <div>
+        <h3>Picking the segment</h3>
+        <p>I read FlytBase's 23 customer stories and the BDR job post, which names energy, mining and critical infrastructure. Solar had the clearest number (EnBW), and the Gulf had the most news in 2026. So I picked the overlap instead of a broad list.</p>
+      </div>
+      <div>
+        <h3>Finding triggers</h3>
+        <p>I used Claude with web search to pull project news, then opened every source myself and wrote the trigger in my own words. Where a source only reports a frontrunner, the row says so. One row has no fresh trigger and says that too.</p>
+      </div>
+      <div>
+        <h3>What I left out</h3>
+        <p>No names or contact details: a rep would find the person in Sales Navigator and check that the role exists. I also did not check drone rules (GCAA in the UAE, GACA in Saudi) per site; that is the next thing I would research before sending. My <a href="https://github.com/techi101/ai-outbound-agent" target="_blank" rel="noopener">outbound agent</a> can run the research step at scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Made by Nitesh Kumar Yadav, final year B.Tech (ECE, AI and ML), NSUT Delhi. Not affiliated with FlytBase.</span>
+    <a href="https://github.com/techi101/flytbase-outbound">Source and CSV on GitHub</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var chips=[].slice.call(document.querySelectorAll('.chip'));
+  var rows=[].slice.call(document.querySelectorAll('tbody tr'));
+  var count=document.getElementById('count');
+  chips.forEach(function(ch){
+    ch.addEventListener('click',function(){
+      var c=ch.getAttribute('data-c'),n=0;
+      chips.forEach(function(o){o.setAttribute('aria-pressed',o===ch?'true':'false')});
+      rows.forEach(function(r){var show=c==='all'||r.getAttribute('data-country')===c;r.hidden=!show;if(show)n++});
+      count.textContent=c==='all'?'Showing all '+n+' accounts.':'Showing '+n+' account'+(n===1?'':'s')+' in '+c+'.';
+    });
+  });
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.getElementById(b.getAttribute('data-for')).textContent;
+      var done=function(){b.textContent='Copied';b.setAttribute('data-done','');setTimeout(function(){b.textContent='Copy line';b.removeAttribute('data-done')},1600)};
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){b.textContent='Select the text to copy'})}
+    });
+  });
+})();
+</script>
+</body>
+</html>
